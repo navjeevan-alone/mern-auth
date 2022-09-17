@@ -1,26 +1,33 @@
-import {useState} from 'react'
-
+import { useState } from 'react'
+import { ACTIONS } from '../Actions';
+import { useAuthValue } from '../contexts/AuthContext'
 function Signup() {
-    const [username, setUsername] = useState();
-    const [firstName, setFirstName] = useState()
-    const [lastName, setLastName] = useState()
-    const [password, setPassword] = useState();
-    const [confirmPassword, setConfirmPassword] = useState();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [authState, authDispatch] = useAuthValue();
+    const handleSubmit =async (e) => {
+        e.preventDefault();
+        let userDetails = {
+            email,password
+        }
+        try {
+            await authDispatch({type:"login-user",userDetails:{...userDetails}})            
+         await authDispatch({type:"set-user"})      
+        } catch (err) {
+            console.log(err);
+        }
 
-  return (
-   <fieldset className='form login' >
-        <legend>Signup</legend>
-          <form >
-              <input type="text" value={username} onChange={e=>setUsername(e.target.value)} placeholder='Username'/>
-              <input type="text" value={firstName} onChange={e=>setFirstName(e.target.value)} placeholder='Firstname'/>
-              <input type="text" value={lastName} onChange={e=>setLastName(e.target.value)} placeholder='Lastname'/>
-              <input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder='Password'/>
-              <input type="password" value={confirmPassword} onChange={e=>setConfirmPassword(e.target.value)} placeholder='Confirm Password'/>
-              <button type="submit">Signup</button>
-              <button type="reset">reset</button>
-          </form>
-    </fieldset>
-  )
+    }
+    return (
+        <fieldset className='form login' >
+            <legend>Signup</legend>
+            <form onSubmit={handleSubmit} >
+                <input type="text" value={email} onChange={e => setEmail(e.target.value)} placeholder='Username' />
+                <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder='Password' />
+                <button type="submit">Signup</button>
+            </form>
+        </fieldset>
+    )
 }
 
 export default Signup

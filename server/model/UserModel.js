@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import validator from "validator"
 
 const User = mongoose.Schema({
     email: {
@@ -10,4 +11,4 @@ const User = mongoose.Schema({
 })
 
 const UserModel = mongoose.model("user", User, "users");
-export default UserModel
+export default UserModel;

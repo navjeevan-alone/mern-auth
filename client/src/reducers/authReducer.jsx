@@ -41,6 +41,4 @@ export const login = async (userDetails) => {
 	}
 }
 export default authReducer;
-// console.log(
-// 	authReducer({ name: "chetan", lname: "alone" }, { type: "auth-test" })
-// );
+      
